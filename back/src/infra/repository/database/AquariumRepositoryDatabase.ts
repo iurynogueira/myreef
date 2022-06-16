@@ -1,5 +1,5 @@
 import { Aquarium, Indicator } from '@/domain/entity'
-import { AquariumRepository } from '@/domain/repository'
+import { AquariumRepository } from '@/domain/contracts/repository'
 import { Connection } from '@/infra/database'
 
 export class AquariumRepositoryDatabase implements AquariumRepository {
@@ -29,6 +29,7 @@ export class AquariumRepositoryDatabase implements AquariumRepository {
     indicatorsWithAquarium.forEach((indicator: Indicator) => {
       aquarium.indicators.push(indicator)
     })
+
     return aquarium
   }
 

@@ -1,4 +1,6 @@
-import { AquariumRepository } from '@/domain/repository'
+import { ListAquariumsController } from '@/application'
+import { AquariumRepository } from '@/domain/contracts/repository'
+import { setupListAquariums } from '@/domain/usecases'
 import { Http } from '@/infra/http'
 
 export class AquariumController {
@@ -7,8 +9,9 @@ export class AquariumController {
     readonly aquariumRepository: AquariumRepository
   ) {
     http.on('get', '/aquariums', async () => {
-      const output = await aquariumRepository.list()
-      return output
+      const listAquariumsUseCase = setupListAquariums(aquariumRepository)
+      const controller = new ListAquariumsController(listAquariumsUseCase)
+      return controller.execute()
     })
   }
 }
